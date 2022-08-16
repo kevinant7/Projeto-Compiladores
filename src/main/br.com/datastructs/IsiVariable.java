@@ -1,8 +1,8 @@
 package datastructs;
 
 public class IsiVariable extends IsiSymbol {
-    public static final int NUMBER=0;
-    public static final int TEXT  =1;
+    public static final int NUMBER = 0;
+    public static final int TEXT = 1;
     private int type;
     private String value;
 
@@ -37,10 +37,9 @@ public class IsiVariable extends IsiSymbol {
         String str;
         if (type == NUMBER) {
             str = "double ";
-        }
-        else {
+        } else {
             str = "String ";
         }
-        return str + " "+super.name+";";
+        return str + " " + super.name + ";";
     }
 }

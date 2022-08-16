@@ -15,7 +15,7 @@ public class IsiSymbolTable {
     }
 
     public boolean exists(String symbolName) {
-        return map.get(symbolName) != null;
+        return map.get(symbolName) == null;
     }
 
     public IsiSymbol get(String symbolName) {
