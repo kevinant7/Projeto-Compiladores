@@ -9,7 +9,7 @@ import datastructs.IsiSymbolTable;
 
 public class IsiProgram {
 	private IsiSymbolTable varTable;
-	private ArrayList<AbstractCommand> comandos;
+	private ArrayList<ast.AbstractCommand> comandos;
 	private String programName;
 
 	public void generateTarget() {
@@ -21,7 +21,7 @@ public class IsiProgram {
 		for (IsiSymbol symbol: varTable.getAll()) {
 			str.append(symbol.generateJavaCode()+"\n");
 		}
-		for (AbstractCommand command: comandos) {
+		for (ast.AbstractCommand command: comandos) {
 			str.append(command.generateJavaCode()+"\n");
 		}
 		str.append("  }");
@@ -46,11 +46,11 @@ public class IsiProgram {
 		this.varTable = varTable;
 	}
 
-	public ArrayList<AbstractCommand> getComandos() {
+	public ArrayList<ast.AbstractCommand> getComandos() {
 		return comandos;
 	}
 
-	public void setComandos(ArrayList<AbstractCommand> comandos) {
+	public void setComandos(ArrayList<ast.AbstractCommand> comandos) {
 		this.comandos = comandos;
 	}
 

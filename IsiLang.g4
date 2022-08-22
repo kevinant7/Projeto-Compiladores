@@ -62,7 +62,7 @@ grammar IsiLang;
     public void checkType(String left, String id, String expression){
     	for(String type : exprTypeList)  {
     		if(left != type) {
-    			throw new ProjSemanticException("Incompatible types " + left + " and " + type + " in " + id + " = " + expression);
+    			throw new IsiSemanticException("Incompatible types " + left + " and " + type + " in " + id + " = " + expression);
     		}
     	}
     }
@@ -71,15 +71,15 @@ grammar IsiLang;
         String type = exprTypeList.get(0);
         for (String tipo: exprTypeList) {
             if (tipo != type) {
-                throw new ProjSemanticException("Incompatible types in express.1-complete.jar org.antlr.v4ion: " + expression);
+                throw new IsiSemanticException("Incompatible types in express.1-complete.jar org.antlr.v4ion: " + expression);
             }
         }
-        return t;
+        return type;
     }
 
     public ArrayList<String> warnings() {
         ArrayList<String> l = new ArrayList<String>();
-        for(ProjSymbol s: symbolTable.getNonUsed()) {
+        for(IsiSymbol s: symbolTable.getNonUsed()) {
             l.add("Variable <" + s.getName() + "> declared, but not used");
         }
         return l;
@@ -211,7 +211,7 @@ cmdselecao  :  'se' AP    {
                                     _exprDecision += _input.LT(-1).getText();
                                    }
                     FP { 	if(_left != _right) {
-                       								throw new ProjSemanticException("Incompatible types " + _left + " and " + _right + " in " + _exprDecision);
+                       								throw new IsiSemanticException("Incompatible types " + _left + " and " + _right + " in " + _exprDecision);
                        							}
                       }
                     ACH 
@@ -246,7 +246,8 @@ expr		:  termo (
 	            )*
 			;
 			
-termo		: ID { verificaID(_input.LT(-1).getText());
+termo		: ID { String id = _input.LT(-1).getText();
+                   verificaID(_input.LT(-1).getText());
 	               _exprContent += _input.LT(-1).getText();
 	               exprTypeList.add(getTypeByID(id));
                  } 
@@ -318,7 +319,7 @@ cmdrepeticao :  'enquanto' AP //{ exprTypeList = new ArrayList<String>(); }
                                 _left = getTypeByID(_exprDecision);
                             }
                 FP { 	if(_left != _right) {
-                   		                    	throw new ProjSemanticException("Incompatible types " + _left + " and " + _right + " in " + _exprDecision);
+                   		                    	throw new IsiSemanticException("Incompatible types " + _left + " and " + _right + " in " + _exprDecision);
                    		                    }
                    }
                 ACH 
