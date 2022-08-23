@@ -196,8 +196,11 @@ cmdattrib	:  ID { verificaID(_input.LT(-1).getText());
 			;
 
 
-cmdselecao  :  'se' AP
-                    ID    { _exprDecision = _input.LT(-1).getText(); }
+cmdselecao  :  'se' AP    { exprTypeList = new ArrayList<String>(); }
+                    ID    { _exprDecision = _input.LT(-1).getText();
+                            verificaID(_exprDecision);
+                            _left = getTypeByID(_exprDecision);
+                    }
                     OPREL { _exprDecision += _input.LT(-1).getText(); }
                     (ID | NUMBER) {_exprDecision += _input.LT(-1).getText(); }
                     FP
@@ -240,15 +243,17 @@ termo		: ID { verificaID(_input.LT(-1).getText());
                  }
             |
               NUMBER
-              {
-              	_exprContent += _input.LT(-1).getText();
-              }
-            |
+                {
+                    _exprContent += _input.LT(-1).getText();
+                    exprTypeList.add("NUMBER");
+                }
+              |
               TEXT
-              {
-                _exprContent += _input.LT(-1).getText();
-              }
-			;
+                {
+                  _exprContent += _input.LT(-1).getText();
+                  exprTypeList.add("TEXT");
+                }
+              ;
 
 
 AP	: '('
