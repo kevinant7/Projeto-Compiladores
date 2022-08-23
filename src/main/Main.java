@@ -31,7 +31,9 @@ public class Main {
 			
 			parser.generateCode();
 
-			//parser.warnings();
+			parser.warnings();
+
+			parser.exibeWarnings();
 
 		}
 		catch(IsiSemanticException ex) {

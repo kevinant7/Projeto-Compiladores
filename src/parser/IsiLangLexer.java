@@ -106,9 +106,14 @@ public class IsiLangLexer extends Lexer {
 		private String _exprID;
 		private String _exprContent;
 		private String _exprDecision;
+		private String _left;
+	    private String _right;
+	    private String _actionID;
+	    private String _declID;
 		private ArrayList<AbstractCommand> lista;
 		private ArrayList<AbstractCommand> listaTrue;
 		private ArrayList<AbstractCommand> listaFalse;
+		private ArrayList<String> exprTypeList = new ArrayList<String>();
 
 		public void verificaID(String id){
 			if (!symbolTable.exists(id)){
@@ -125,6 +130,47 @@ public class IsiLangLexer extends Lexer {
 		public void generateCode(){
 			program.generateTarget();
 		}
+
+		public String getTypeByID(String id) {
+	        		return symbolTable.getTypeByID(id);
+	        	}
+
+	        public void checkType(String left, String id, String expression){
+	        	for(String type : exprTypeList)  {
+	        		if(left != type) {
+	        			throw new IsiSemanticException("Incompatible types " + left + " and " + type + " in " + id + " = " + expression);
+	        		}
+	        	}
+	        }
+
+	        public String verifyAndGetType(String expression) {
+	            String type = exprTypeList.get(0);
+	            for (String tipo: exprTypeList) {
+	                if (tipo != type) {
+	                    throw new IsiSemanticException("Incompatible types in expression: " + expression);
+	                }
+	            }
+	            return type;
+	        }
+
+	        public ArrayList<String> warnings() {
+	            ArrayList<String> listWarnings = new ArrayList<String>();
+	            for(IsiSymbol symbol: symbolTable.getNonUsed()) {
+	                listWarnings.add("Variable <" + symbol.getName() + "> declared, but not used");
+	            }
+	            return listWarnings;
+	        }
+
+	        public void exibeWarnings(){
+	            ArrayList<String> warnings = warnings();
+	            if(warnings.size() > 0) {
+	                System.out.println("*".repeat(50) + " WARNINGS " + "*".repeat(50));
+	                for(String w : warnings) {
+	                    System.out.println("** " + w);
+	                }
+	                System.out.println("*".repeat(110) + "\n");
+	            }
+	        }
 
 
 	public IsiLangLexer(CharStream input) {
