@@ -2,7 +2,7 @@ package ast;
 
 import datastructs.IsiVariable;
 
-public class CommandAtribuicao extends AbstractCommand{
+public class CommandAtribuicao extends ast.AbstractCommand {
 
 	private String id;
 	private String expr;

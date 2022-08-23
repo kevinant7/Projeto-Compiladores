@@ -1,6 +1,6 @@
 package ast;
 
-public class CommandEscrita extends AbstractCommand {
+public class CommandEscrita extends ast.AbstractCommand {
 
 	private String id;
 	

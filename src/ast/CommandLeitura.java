@@ -2,7 +2,7 @@ package ast;
 
 import datastructs.IsiVariable;
 
-public class CommandLeitura extends AbstractCommand {
+public class CommandLeitura extends ast.AbstractCommand {
 
 	private String id;
 	private IsiVariable var;

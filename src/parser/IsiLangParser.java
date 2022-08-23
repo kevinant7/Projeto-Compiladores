@@ -145,7 +145,7 @@ public class IsiLangParser extends Parser {
 	    public void checkType(String left, String id, String expression){
 	    	for(String type : exprTypeList)  {
 	    		if(left != type) {
-	    			throw new ProjSemanticException("Incompatible types " + left + " and " + type + " in " + id + " = " + expression);
+	    			throw new IsiSemanticException("Incompatible types " + left + " and " + type + " in " + id + " = " + expression);
 	    		}
 	    	}
 	    }
@@ -154,15 +154,15 @@ public class IsiLangParser extends Parser {
 	        String type = exprTypeList.get(0);
 	        for (String tipo: exprTypeList) {
 	            if (tipo != type) {
-	                throw new ProjSemanticException("Incompatible types in express.1-complete.jar org.antlr.v4ion: " + expression);
+	                throw new IsiSemanticException("Incompatible types in express.1-complete.jar org.antlr.v4ion: " + expression);
 	            }
 	        }
-	        return t;
+	        return type;
 	    }
 
 	    public ArrayList<String> warnings() {
 	        ArrayList<String> l = new ArrayList<String>();
-	        for(ProjSymbol s: symbolTable.getNonUsed()) {
+	        for(IsiSymbol s: symbolTable.getNonUsed()) {
 	            l.add("Variable <" + s.getName() + "> declared, but not used");
 	        }
 	        return l;
@@ -828,7 +828,7 @@ public class IsiLangParser extends Parser {
 			setState(102);
 			match(FP);
 			 	if(_left != _right) {
-			                       								throw new ProjSemanticException("Incompatible types " + _left + " and " + _right + " in " + _exprDecision);
+			                       								throw new IsiSemanticException("Incompatible types " + _left + " and " + _right + " in " + _exprDecision);
 			                       							}
 			                      
 			setState(104);
@@ -1001,7 +1001,8 @@ public class IsiLangParser extends Parser {
 				{
 				setState(135);
 				match(ID);
-				 verificaID(_input.LT(-1).getText());
+				 String id = _input.LT(-1).getText();
+				                   verificaID(_input.LT(-1).getText());
 					               _exprContent += _input.LT(-1).getText();
 					               exprTypeList.add(getTypeByID(id));
 				                 
@@ -1115,7 +1116,7 @@ public class IsiLangParser extends Parser {
 			setState(151);
 			match(FP);
 			 	if(_left != _right) {
-			                   		                    	throw new ProjSemanticException("Incompatible types " + _left + " and " + _right + " in " + _exprDecision);
+			                   		                    	throw new IsiSemanticException("Incompatible types " + _left + " and " + _right + " in " + _exprDecision);
 			                   		                    }
 			                   
 			setState(153);

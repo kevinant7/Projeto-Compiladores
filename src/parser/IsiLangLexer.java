@@ -138,7 +138,7 @@ public class IsiLangLexer extends Lexer {
 	    public void checkType(String left, String id, String expression){
 	    	for(String type : exprTypeList)  {
 	    		if(left != type) {
-	    			throw new ProjSemanticException("Incompatible types " + left + " and " + type + " in " + id + " = " + expression);
+	    			throw new IsiSemanticException("Incompatible types " + left + " and " + type + " in " + id + " = " + expression);
 	    		}
 	    	}
 	    }
@@ -147,15 +147,15 @@ public class IsiLangLexer extends Lexer {
 	        String type = exprTypeList.get(0);
 	        for (String tipo: exprTypeList) {
 	            if (tipo != type) {
-	                throw new ProjSemanticException("Incompatible types in express.1-complete.jar org.antlr.v4ion: " + expression);
+	                throw new IsiSemanticException("Incompatible types in express.1-complete.jar org.antlr.v4ion: " + expression);
 	            }
 	        }
-	        return t;
+	        return type;
 	    }
 
 	    public ArrayList<String> warnings() {
 	        ArrayList<String> l = new ArrayList<String>();
-	        for(ProjSymbol s: symbolTable.getNonUsed()) {
+	        for(IsiSymbol s: symbolTable.getNonUsed()) {
 	            l.add("Variable <" + s.getName() + "> declared, but not used");
 	        }
 	        return l;
