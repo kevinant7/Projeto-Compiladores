@@ -1,6 +1,8 @@
 package datastructs;
 
-public class IsiVariable extends datastructs.IsiSymbol {
+import datastructs.IsiSymbol;
+
+public class IsiVariable extends IsiSymbol {
 	
 	public static final int NUMBER = 0;
 	public static final int TEXT = 1;

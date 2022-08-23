@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
+import ast.AbstractCommand;
 import datastructs.IsiSymbol;
 import datastructs.IsiSymbolTable;
 
@@ -46,11 +47,11 @@ public class IsiProgram {
 		this.varTable = varTable;
 	}
 
-	public ArrayList<ast.AbstractCommand> getComandos() {
+	public ArrayList<AbstractCommand> getComandos() {
 		return comandos;
 	}
 
-	public void setComandos(ArrayList<ast.AbstractCommand> comandos) {
+	public void setComandos(ArrayList<AbstractCommand> comandos) {
 		this.comandos = comandos;
 	}
 
