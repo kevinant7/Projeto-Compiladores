@@ -11,6 +11,7 @@ grammar IsiLang;
 	import ast.CommandEscrita;
 	import ast.CommandAtribuicao;
 	import ast.CommandDecisao;
+	import ast.CommandRepeticao;
 	import java.util.ArrayList;
 	import java.util.Stack;
 }
@@ -29,6 +30,7 @@ grammar IsiLang;
 	private String _exprID;
 	private String _exprContent;
 	private String _exprDecision;
+	private ArrayList<AbstractCommand> lista;
 	private ArrayList<AbstractCommand> listaTrue;
 	private ArrayList<AbstractCommand> listaFalse;
 
@@ -102,6 +104,7 @@ cmd		:  cmdleitura
  		|  cmdescrita
  		|  cmdattrib
  		|  cmdselecao
+ 		|  cmdrepeticao
 		;
 
 cmdleitura	: 'leia' AP
@@ -189,6 +192,11 @@ termo		: ID { verificaID(_input.LT(-1).getText());
               {
               	_exprContent += _input.LT(-1).getText();
               }
+            |
+              TEXT
+              {
+                _exprContent += _input.LT(-1).getText();
+              }
 			;
 
 
@@ -227,3 +235,25 @@ NUMBER	: [0-9]+ ('.' [0-9]+)?
 		;
 
 WS	: (' ' | '\t' | '\n' | '\r') -> skip;
+
+TEXT  : '"' ([A-Z] | ' ' | [a-z])* '"'
+      ;
+
+cmdrepeticao :  'enquanto' AP
+                ID    { _exprDecision = _input.LT(-1).getText(); }
+                OPREL { _exprDecision += _input.LT(-1).getText(); }
+                (ID | NUMBER) {_exprDecision += _input.LT(-1).getText(); }
+                FP
+                ACH
+                { curThread = new ArrayList<AbstractCommand>();
+                  stack.push(curThread);
+                }
+                (cmd)+
+
+                FCH
+                {
+                	lista = stack.pop();
+               		CommandRepeticao cmd = new CommandRepeticao(_exprDecision, lista);
+               		stack.peek().add(cmd);
+               	}
+               	;
