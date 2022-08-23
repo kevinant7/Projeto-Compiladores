@@ -78,11 +78,11 @@ grammar IsiLang;
     }
 
     public ArrayList<String> warnings() {
-        ArrayList<String> l = new ArrayList<String>();
-        for(IsiSymbol s: symbolTable.getNonUsed()) {
-            l.add("Variable <" + s.getName() + "> declared, but not used");
+        ArrayList<String> listWarnings = new ArrayList<String>();
+        for(IsiSymbol symbol: symbolTable.getNonUsed()) {
+            listWarnings.add("Variable <" + symbol.getName() + "> declared, but not used");
         }
-        return l;
+        return listWarnings;
     }
 
     public void exibeWarnings(){

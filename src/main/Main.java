@@ -24,14 +24,14 @@ public class Main {
 			parser = new parser.IsiLangParser(tokenStream);
 			
 			parser.prog();
-
-			parser.warnings();
 			
 			System.out.println("Compilation Successful");
 			
 			parser.exibeComandos();
 			
 			parser.generateCode();
+
+			parser.warnings();
 
 		}
 		catch(IsiSemanticException ex) {
