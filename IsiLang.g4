@@ -88,11 +88,11 @@ grammar IsiLang;
         public void exibeWarnings(){
             ArrayList<String> warnings = warnings();
             if(warnings.size() > 0) {
-                System.out.println("*".repeat(50) + " WARNINGS " + "*".repeat(50));
+                System.out.println("-".repeat(50) + " WARNINGS " + "-".repeat(50));
                 for(String w : warnings) {
-                    System.out.println("** " + w);
+                    System.out.println("- " + w + ".");
                 }
-                System.out.println("*".repeat(110) + "\n");
+                System.out.println("-".repeat(110) + "\n");
             }
         }
 }
