@@ -2,12 +2,10 @@ package datastructs;
 
 public class IsiVariable extends datastructs.IsiSymbol {
 	
-	public static final int NUMBER=0;
-	public static final int TEXT  =1;
-	
+	public static final int NUMBER = 0;
+	public static final int TEXT = 1;
 	private int type;
 	private String value;
-	
 	public IsiVariable(String name, int type, String value) {
 		super(name);
 		this.type = type;
@@ -45,7 +43,4 @@ public class IsiVariable extends datastructs.IsiSymbol {
        }
        return str + " "+super.name+";";
 	}
-	
-	
-
 }
