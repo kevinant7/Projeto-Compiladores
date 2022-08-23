@@ -156,7 +156,7 @@ public class IsiLangLexer extends Lexer {
 	        public ArrayList<String> warnings() {
 	            ArrayList<String> listWarnings = new ArrayList<String>();
 	            for(IsiSymbol symbol: symbolTable.getNonUsed()) {
-	                listWarnings.add("Variable <" + symbol.getName() + "> declared, but not used");
+	                listWarnings.add("Variable '" + symbol.getName() + "' declared, but not used");
 	            }
 	            return listWarnings;
 	        }
