@@ -51,7 +51,7 @@ public class IsiLangLexer extends Lexer {
 
 	private static final String[] _LITERAL_NAMES = {
 		null, "'programa'", "'fimprog;'", "'numero'", "'texto'", "'leia'", "'escreva'", 
-		"'se'", "'senao'", "'enquanto'", "'('", "')'", "';'", null, "'='", "','", 
+		"'enquanto'", "'se'", "'senao'", "'('", "')'", "';'", null, "'='", "','", 
 		"'{'", "'}'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
@@ -106,6 +106,7 @@ public class IsiLangLexer extends Lexer {
 		private String _exprID;
 		private String _exprContent;
 		private String _exprDecision;
+		private String _exprRepet;
 		private String _left;
 	    private String _right;
 	    private String _actionID;
@@ -143,7 +144,7 @@ public class IsiLangLexer extends Lexer {
 	        	}
 	        }
 
-	        public String verifyAndGetType(String expression) {
+	        public String verifyAndGetType(ArrayList<String> exprTypeList, String expression) {
 	            String type = exprTypeList.get(0);
 	            for (String tipo: exprTypeList) {
 	                if (tipo != type) {
@@ -203,7 +204,7 @@ public class IsiLangLexer extends Lexer {
 		"\t\22\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\3\2\3\2\3\2\3"+
 		"\2\3\2\3\2\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\4\3\4\3\4"+
 		"\3\4\3\4\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3\5\3\6\3\6\3\6\3\6\3\6\3\7\3\7\3"+
-		"\7\3\7\3\7\3\7\3\7\3\7\3\b\3\b\3\b\3\t\3\t\3\t\3\t\3\t\3\t\3\n\3\n\3\n"+
+		"\7\3\7\3\7\3\7\3\7\3\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\t\3\t\3\t"+
 		"\3\n\3\n\3\n\3\n\3\n\3\n\3\13\3\13\3\f\3\f\3\r\3\r\3\16\3\16\3\17\3\17"+
 		"\3\20\3\20\3\21\3\21\3\22\3\22\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23"+
 		"\3\23\5\23\u0087\n\23\3\24\3\24\7\24\u008b\n\24\f\24\16\24\u008e\13\24"+
@@ -217,7 +218,7 @@ public class IsiLangLexer extends Lexer {
 		"\2\2\2\2\25\3\2\2\2\2\27\3\2\2\2\2\31\3\2\2\2\2\33\3\2\2\2\2\35\3\2\2"+
 		"\2\2\37\3\2\2\2\2!\3\2\2\2\2#\3\2\2\2\2%\3\2\2\2\2\'\3\2\2\2\2)\3\2\2"+
 		"\2\2+\3\2\2\2\2-\3\2\2\2\3/\3\2\2\2\58\3\2\2\2\7A\3\2\2\2\tH\3\2\2\2\13"+
-		"N\3\2\2\2\rS\3\2\2\2\17[\3\2\2\2\21^\3\2\2\2\23d\3\2\2\2\25m\3\2\2\2\27"+
+		"N\3\2\2\2\rS\3\2\2\2\17[\3\2\2\2\21d\3\2\2\2\23g\3\2\2\2\25m\3\2\2\2\27"+
 		"o\3\2\2\2\31q\3\2\2\2\33s\3\2\2\2\35u\3\2\2\2\37w\3\2\2\2!y\3\2\2\2#{"+
 		"\3\2\2\2%\u0086\3\2\2\2\'\u0088\3\2\2\2)\u0090\3\2\2\2+\u009c\3\2\2\2"+
 		"-\u00a0\3\2\2\2/\60\7r\2\2\60\61\7t\2\2\61\62\7q\2\2\62\63\7i\2\2\63\64"+
@@ -226,9 +227,9 @@ public class IsiLangLexer extends Lexer {
 		"\2\2AB\7p\2\2BC\7w\2\2CD\7o\2\2DE\7g\2\2EF\7t\2\2FG\7q\2\2G\b\3\2\2\2"+
 		"HI\7v\2\2IJ\7g\2\2JK\7z\2\2KL\7v\2\2LM\7q\2\2M\n\3\2\2\2NO\7n\2\2OP\7"+
 		"g\2\2PQ\7k\2\2QR\7c\2\2R\f\3\2\2\2ST\7g\2\2TU\7u\2\2UV\7e\2\2VW\7t\2\2"+
-		"WX\7g\2\2XY\7x\2\2YZ\7c\2\2Z\16\3\2\2\2[\\\7u\2\2\\]\7g\2\2]\20\3\2\2"+
-		"\2^_\7u\2\2_`\7g\2\2`a\7p\2\2ab\7c\2\2bc\7q\2\2c\22\3\2\2\2de\7g\2\2e"+
-		"f\7p\2\2fg\7s\2\2gh\7w\2\2hi\7c\2\2ij\7p\2\2jk\7v\2\2kl\7q\2\2l\24\3\2"+
+		"WX\7g\2\2XY\7x\2\2YZ\7c\2\2Z\16\3\2\2\2[\\\7g\2\2\\]\7p\2\2]^\7s\2\2^"+
+		"_\7w\2\2_`\7c\2\2`a\7p\2\2ab\7v\2\2bc\7q\2\2c\20\3\2\2\2de\7u\2\2ef\7"+
+		"g\2\2f\22\3\2\2\2gh\7u\2\2hi\7g\2\2ij\7p\2\2jk\7c\2\2kl\7q\2\2l\24\3\2"+
 		"\2\2mn\7*\2\2n\26\3\2\2\2op\7+\2\2p\30\3\2\2\2qr\7=\2\2r\32\3\2\2\2st"+
 		"\t\2\2\2t\34\3\2\2\2uv\7?\2\2v\36\3\2\2\2wx\7.\2\2x \3\2\2\2yz\7}\2\2"+
 		"z\"\3\2\2\2{|\7\177\2\2|$\3\2\2\2}\u0087\t\3\2\2~\177\7@\2\2\177\u0087"+

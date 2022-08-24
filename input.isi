@@ -15,20 +15,24 @@ programa
   }
   senao {
      escreva (b);
-  }
+  }  
   
   escreva (x);
 
-  enquanto(a>0){
+  enquanto(x>"x"){
     escreva(a);
     a = a - 1;
     escreva(x);
-	    se ( a > b ) {
-	     escreva (a);
-	  }
-	  senao {
-	     escreva (b);
-	  }
+    
+    
+    se ( a > b ) {
+     escreva (a);
+  }
+  senao {
+     escreva (b);
+  } 
+    
    }
+
   
 fimprog;

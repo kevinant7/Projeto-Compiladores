@@ -30,6 +30,7 @@ grammar IsiLang;
 	private String _exprID;
 	private String _exprContent;
 	private String _exprDecision;
+	private String _exprRepet;
 	private String _left;
     private String _right;
     private String _actionID;
@@ -67,7 +68,7 @@ grammar IsiLang;
         	}
         }
 
-        public String verifyAndGetType(String expression) {
+        public String verifyAndGetType(ArrayList<String> exprTypeList, String expression) {
             String type = exprTypeList.get(0);
             for (String tipo: exprTypeList) {
                 if (tipo != type) {
@@ -195,43 +196,6 @@ cmdattrib	:  ID { verificaID(_input.LT(-1).getText());
                }
 			;
 
-
-cmdselecao  :  'se' AP    { exprTypeList = new ArrayList<String>(); }
-                    ID    { _exprDecision = _input.LT(-1).getText();
-                            verificaID(_exprDecision);
-                            _left = getTypeByID(_exprDecision);
-                    }
-                    OPREL { _exprDecision += _input.LT(-1).getText(); }
-                    (ID | NUMBER) {_exprDecision += _input.LT(-1).getText(); }
-                    FP
-                    ACH
-                    { curThread = new ArrayList<AbstractCommand>();
-                      stack.push(curThread);
-                    }
-                    (cmd)+
-
-                    FCH
-                    {
-                       listaTrue = stack.pop();
-                    }
-                   ('senao'
-
-                   	 ACH
-                   	 {
-                   	 	curThread = new ArrayList<AbstractCommand>();
-                   	 	stack.push(curThread);
-                   	 }
-                   	(cmd+)
-
-                   	FCH
-                   	{
-                   		listaFalse = stack.pop();
-                   		CommandDecisao cmd = new CommandDecisao(_exprDecision, listaTrue, listaFalse);
-                   		stack.peek().add(cmd);
-                   	}
-                   )?
-            ;
-
 expr		:  termo (
 	             OP  { _exprContent += _input.LT(-1).getText();}
 	            termo
@@ -295,11 +259,38 @@ WS	: (' ' | '\t' | '\n' | '\r') -> skip;
 TEXT  : '"' ([A-Z] | ' ' | [a-z])* '"'
       ;
 
-cmdrepeticao :  'enquanto' AP
-                ID    { _exprDecision = _input.LT(-1).getText(); }
-                OPREL { _exprDecision += _input.LT(-1).getText(); }
-                (ID | NUMBER) {_exprDecision += _input.LT(-1).getText(); }
-                FP
+cmdrepeticao :  'enquanto' AP    { exprTypeList = new ArrayList<String>();
+								   _exprContent = "";
+				    			   _exprRepet = "";}
+                    ID    { _exprRepet = _input.LT(-1).getText();
+                            verificaID(_exprRepet);
+                            _left = getTypeByID(_exprRepet);
+                    }
+                    OPREL { _exprRepet += _input.LT(-1).getText();
+                    		}
+                    
+                    
+                    (ID { _exprContent = _input.LT(-1).getText();
+                         verificaID(_exprContent);
+                         _right = getTypeByID(_exprContent);
+                         _exprRepet += _exprContent;
+                    	}
+                    |
+                    expr {_exprRepet += _input.LT(-1).getText();
+		            		_right = verifyAndGetType(exprTypeList, _exprContent);
+		            	 }
+		            )
+                    FP
+                    { 
+                      if(_right != _left){
+                		throw new IsiSemanticException("Incompatible types");
+                	  }
+                    }
+                    
+                    
+                    
+                    
+                
                 ACH
                 { curThread = new ArrayList<AbstractCommand>();
                   stack.push(curThread);
@@ -309,7 +300,64 @@ cmdrepeticao :  'enquanto' AP
                 FCH
                 {
                 	lista = stack.pop();
-               		CommandRepeticao cmd = new CommandRepeticao(_exprDecision, lista);
+               		CommandRepeticao cmd = new CommandRepeticao(_exprRepet, lista);
                		stack.peek().add(cmd);
                	}
                	;
+               	
+cmdselecao  :  'se' AP    { exprTypeList = new ArrayList<String>();
+								   _exprContent = "";
+				    			   _exprDecision = "";}
+                    ID    { _exprDecision = _input.LT(-1).getText();
+                            verificaID(_exprDecision);
+                            _left = getTypeByID(_exprDecision);
+                    }
+                    OPREL { _exprDecision += _input.LT(-1).getText();
+                    		}
+                    
+                    
+                    (ID { _exprContent = _input.LT(-1).getText();
+                         verificaID(_exprContent);
+                         _right = getTypeByID(_exprContent);
+                         _exprDecision += _exprContent;
+                    	}
+                    |
+                    expr {_exprDecision += _input.LT(-1).getText();
+		            		_right = verifyAndGetType(exprTypeList, _exprContent);
+		            	 }
+		            )
+                    FP
+                    { 
+                      if(_right != _left){
+                		throw new IsiSemanticException("Incompatible types");
+                	  }
+                    }
+                    
+                              
+                    ACH
+                    { curThread = new ArrayList<AbstractCommand>();
+                      stack.push(curThread);
+                    }
+                    (cmd)+
+
+                    FCH
+                    {
+                       listaTrue = stack.pop();
+                    }
+                   ('senao'
+
+                   	 ACH
+                   	 {
+                   	 	curThread = new ArrayList<AbstractCommand>();
+                   	 	stack.push(curThread);
+                   	 }
+                   	(cmd+)
+
+                   	FCH
+                   	{
+                   		listaFalse = stack.pop();
+                   		CommandDecisao cmd = new CommandDecisao(_exprDecision, listaTrue, listaFalse);
+                   		stack.peek().add(cmd);
+                   	}
+                   )?
+            ;
