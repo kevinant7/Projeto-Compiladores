@@ -3,9 +3,9 @@
 ## Desenvolvedores
 #  Nome                                 RA
 1. Chung Mou Kin                        11065015
-1. 
-1. 
-1. Kevin Willy Antunes de Freitas       11066012
+2. Fabiola Filgueira Deiró dos Santos   11201721084 
+3. 
+4. Kevin Willy Antunes de Freitas       11066012
 
 
 # Sobre o Projeto
