@@ -283,14 +283,10 @@ cmdrepeticao :  'enquanto' AP    { exprTypeList = new ArrayList<String>();
                     FP
                     { 
                       if(_right != _left){
-                		throw new IsiSemanticException("Incompatible types");
+                		throw new IsiSemanticException("Incompatible types in "+_exprRepet);
                 	  }
                     }
-                    
-                    
-                    
-                    
-                
+                                    
                 ACH
                 { curThread = new ArrayList<AbstractCommand>();
                   stack.push(curThread);
@@ -329,11 +325,10 @@ cmdselecao  :  'se' AP    { exprTypeList = new ArrayList<String>();
                     FP
                     { 
                       if(_right != _left){
-                		throw new IsiSemanticException("Incompatible types");
+                		throw new IsiSemanticException("Incompatible types in "+_exprDecision);
                 	  }
                     }
-                    
-                              
+                                                  
                     ACH
                     { curThread = new ArrayList<AbstractCommand>();
                       stack.push(curThread);

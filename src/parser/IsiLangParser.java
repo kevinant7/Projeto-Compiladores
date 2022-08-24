@@ -971,7 +971,7 @@ public class IsiLangParser extends Parser {
 			match(FP);
 			 
 			                      if(_right != _left){
-			                		throw new IsiSemanticException("Incompatible types");
+			                		throw new IsiSemanticException("Incompatible types in "+_exprRepet);
 			                	  }
 			                    
 			setState(126);
@@ -1104,7 +1104,7 @@ public class IsiLangParser extends Parser {
 			match(FP);
 			 
 			                      if(_right != _left){
-			                		throw new IsiSemanticException("Incompatible types");
+			                		throw new IsiSemanticException("Incompatible types in "+_exprDecision);
 			                	  }
 			                    
 			setState(152);

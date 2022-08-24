@@ -17,7 +17,7 @@ System.out.println(a);}else {
 System.out.println(b);}
 
 System.out.println(x);
-while (x>"x") {
+while (x>"xuigui") {
 System.out.println(a);a = a-1;System.out.println(x);if (a>b) {
 System.out.println(a);}else {
 System.out.println(b);}

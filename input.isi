@@ -19,7 +19,7 @@ programa
   
   escreva (x);
 
-  enquanto(x>"x"){
+  enquanto(x>"xuigui"){
     escreva(a);
     a = a - 1;
     escreva(x);
