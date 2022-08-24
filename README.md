@@ -1,11 +1,11 @@
 # Projeto-Compiladores
 
 ## Desenvolvedores
-#  Nome                                 RA
-1. Chung Mou Kin                        11065015
-2. Fabiola Filgueira Deiró dos Santos   11201721084 
+#  Nome                                 - RA
+1. Chung Mou Kin                        - 11065015
+2. Fabiola Filgueira Deiró dos Santos   - 11201721084 
 3. 
-4. Kevin Willy Antunes de Freitas       11066012
+4. Kevin Willy Antunes de Freitas       - 11066012
 
 
 # Sobre o Projeto
@@ -13,7 +13,8 @@
   Através da utilização do ANTLR 4.7.1, procuramos desenvolver
   uma linguagem própria, muito próxima do Português estruturado.  
 
-## Checklist
+# Checklist
+## Itens implementados:
 - Possuir 2 tipos de dados (pelo menos 1 String) 	
 - Possuir a instrução de decisão (if/else)
 - Pelo menos 1 estrutura de repetição
