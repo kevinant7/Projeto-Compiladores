@@ -1,14 +1,12 @@
 # Projeto-Compiladores
 
 ## Desenvolvedores
-##  Nome                                 - RA
 1. Chung Mou Kin                        - 11065015
 2. Fabiola Filgueira Deiró dos Santos   - 11201721084 
 3. Isolda Costa                         - 21053014
 4. Kevin Willy Antunes de Freitas       - 11066012
 
-
-# Sobre o Projeto
+## Sobre o Projeto
   Este projeto tem como objetivo a construção da IsiLang. 
   Através da utilização do ANTLR 4.7.1, procuramos desenvolver
   uma linguagem própria, muito próxima do Português estruturado.  
@@ -26,5 +24,5 @@
 - Geração de pelo menos 1 linguagem destino (Java)	
 
 # Link para o video explicativo
-## https://youtu.be/2imHTfg9Cds
+https://youtu.be/2imHTfg9Cds
 
