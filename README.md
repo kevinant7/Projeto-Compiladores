@@ -1,10 +1,7 @@
 # Projeto-Compiladores
 
-# Apresentação
-https://youtu.be/2imHTfg9Cds
-
 ## Desenvolvedores
-#  Nome                                 - RA
+##  Nome                                 - RA
 1. Chung Mou Kin                        - 11065015
 2. Fabiola Filgueira Deiró dos Santos   - 11201721084 
 3. Isolda Costa                         - 21053014
@@ -29,5 +26,5 @@ https://youtu.be/2imHTfg9Cds
 - Geração de pelo menos 1 linguagem destino (Java)	
 
 # Link para o video explicativo
-##
+## https://youtu.be/2imHTfg9Cds
 
