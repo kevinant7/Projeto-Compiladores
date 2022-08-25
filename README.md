@@ -25,3 +25,6 @@
 - Verificar se há variáveis declaradas e não-utilizadas (warning)
 - Geração de pelo menos 1 linguagem destino (Java)	
 
+# Link para o video explicativo
+##
+
